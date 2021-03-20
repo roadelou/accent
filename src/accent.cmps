@@ -1,141 +1,116 @@
-module accent(input token, output erase_previous, output utf8_high, output utf8_low) {
-	par {
-		local last_token;
+module accent(input token, output erase_previous, output utf8_high, output utf8_low) par {
+	# The local signal used to notice the format string.
+	local last_token;
 
-		if (last_token == 101) { # 'e'
-			par {
-				emit erase_previous <- (token == 49) || (token == 50) || (token == 51);
-				if (token == 49) { # '1'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 168;
-						}
-				} else if (token == 50) { # '2'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 169;
-						}
-				} else if (token == 51) { # '3'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 170;
-						}
-				} else {
-						par {
-							emit utf8_high <- 0;
-							emit utf8_low <- 0;
-						}
-				};
-			}
-		} else if (last_token == 97) { # 'a'
-			par {
-				emit erase_previous <- (token == 49) || (token == 51);
-				if (token == 49) { # '1'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 160;
-						}
-				} else if (token == 51) { # '3'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 162;
-						}
-				} else {
-						par {
-							emit utf8_high <- 0;
-							emit utf8_low <- 0;
-						}
-				};
-			}
-		} else if (last_token == 99) { # 'c'
-			par {
-				emit erase_previous <- (token == 52);
-				if (token == 52) { # '4'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 167;
-						}
-				} else {
-						par {
-							emit utf8_high <- 0;
-							emit utf8_low <- 0;
-						}
-				};
-			}
-		} else if (last_token == 69) { # 'E'
-			par {
-				emit erase_previous <- (token == 49) || (token == 50) || (token == 51);
-				if (token == 49) { # '1'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 136;
-						}
-				} else if (token == 50) { # '2'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 137;
-						}
-				} else if (token == 51) { # '3'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 138;
-						}
-				} else {
-						par {
-							emit utf8_high <- 0;
-							emit utf8_low <- 0;
-						}
-				};
-			}
-		} else if (last_token == 65) { # 'A'
-			par {
-				emit erase_previous <- (token == 49) || (token == 51);
-				if (token == 49) { # '1'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 128;
-						}
-				} else if (token == 51) { # '3'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 130;
-						}
-				} else {
-						par {
-							emit utf8_high <- 0;
-							emit utf8_low <- 0;
-						}
-				};
-			}
-		} else if (last_token == 67) { # 'C'
-			par {
-				emit erase_previous <- (token == 52);
-				if (token == 52) { # '4'
-						par {
-							emit utf8_high <- 195;
-							emit utf8_low <- 135;
-						}
-				} else {
-						par {
-							emit utf8_high <- 0;
-							emit utf8_low <- 0;
-						}
-				};
-			}
-		} else {
-			par {
-				emit erase_previous <- 0;
-				emit utf8_high <- 0;
-				emit utf8_low <- 0;
-			}
-		};
-
-		if (last_token == 123) {
-			if (token == 125) {
-				emit last_token <- token
-			}
-		} else {
-			emit last_token <- token
-		};
+	if (last_token == 101) par { # 'e'
+		emit erase_previous <- (token == 49) || (token == 50) || (token == 51);
+		if (token == 49) par { # '1'
+			emit utf8_high <- 195;
+			emit utf8_low <- 168;
+		}
+		elif (token == 50) par { # '2'
+			emit utf8_high <- 195;
+			emit utf8_low <- 169;
+		}
+		elif (token == 51) par { # '3'
+			emit utf8_high <- 195;
+			emit utf8_low <- 170;
+		}
+		else par {
+			emit utf8_high <- 0;
+			emit utf8_low <- 0;
+		}
+		endif;
 	}
+	elif (last_token == 97) par { # 'a'
+		emit erase_previous <- (token == 49) || (token == 51);
+		if (token == 49) par { # '1'
+			emit utf8_high <- 195;
+			emit utf8_low <- 160;
+		}
+		elif (token == 51) par { # '3'
+			emit utf8_high <- 195;
+			emit utf8_low <- 162;
+		}
+		else par {
+			emit utf8_high <- 0;
+			emit utf8_low <- 0;
+		}
+		endif;
+	}
+	elif (last_token == 99) par { # 'c'
+		emit erase_previous <- (token == 52);
+		if (token == 52) par { # '4'
+			emit utf8_high <- 195;
+			emit utf8_low <- 167;
+		}
+		else par {
+			emit utf8_high <- 0;
+			emit utf8_low <- 0;
+		}
+		endif;
+	}
+	elif (last_token == 69) par { # 'E'
+		emit erase_previous <- (token == 49) || (token == 50) || (token == 51);
+		if (token == 49) par { # '1'
+			emit utf8_high <- 195;
+			emit utf8_low <- 136;
+		}
+		elif (token == 50) par { # '2'
+			emit utf8_high <- 195;
+			emit utf8_low <- 137;
+		}
+		elif (token == 51) par { # '3'
+			emit utf8_high <- 195;
+			emit utf8_low <- 138;
+		}
+		else par {
+			emit utf8_high <- 0;
+			emit utf8_low <- 0;
+		}
+		endif;
+	}
+	elif (last_token == 65) par { # 'A'
+		emit erase_previous <- (token == 49) || (token == 51);
+		if (token == 49) par { # '1'
+			emit utf8_high <- 195;
+			emit utf8_low <- 128;
+		}
+		elif (token == 51) par { # '3'
+			emit utf8_high <- 195;
+			emit utf8_low <- 130;
+		}
+		else par {
+			emit utf8_high <- 0;
+			emit utf8_low <- 0;
+		}
+		endif;
+	}
+	elif (last_token == 67) par { # 'C'
+		emit erase_previous <- (token == 52);
+		if (token == 52) par { # '4'
+			emit utf8_high <- 195;
+			emit utf8_low <- 135;
+		}
+		else par {
+			emit utf8_high <- 0;
+			emit utf8_low <- 0;
+		}
+		endif;
+	}
+	else par {
+		emit erase_previous <- 0;
+		emit utf8_high <- 0;
+		emit utf8_low <- 0;
+	}
+	endif;
+
+	if (last_token == 123)
+		if (token == 125)
+			emit last_token <- token
+		endif
+	else
+		emit last_token <- token
+	endif;
 }
+endmodule
