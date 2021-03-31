@@ -13,4 +13,7 @@ build
 # Ignoring vim swap files
 *.swp
 
+# Ignoring the examples
+examples
+
 ##################################### EOF ######################################

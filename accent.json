@@ -1,0 +1,17 @@
+{
+	"entry_point": "accent",
+	"debug": false,
+	"source_directory": "src",
+	"build_directory": "build",
+	"modules": {
+		"accent": ["accent"],
+		"a_low_fsm": ["a_low_fsm"],
+		"a_up_fsm": ["a_up_fsm"],
+		"e_low_fsm": ["e_low_fsm"],
+		"e_up_fsm": ["e_up_fsm"],
+		"c_low_fsm": ["c_low_fsm"],
+		"c_up_fsm": ["c_up_fsm"],
+		"o_low_fsm": ["o_low_fsm"],
+		"o_up_fsm": ["o_up_fsm"]
+	}
+}
