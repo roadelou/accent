@@ -1,0 +1,26 @@
+# State machine handling the substitutions for the 'e' letter. The input should
+# be the token right after the character we could perform the substitution for.
+module e_low_fsm(input token, output erase_previous, output utf8_high, output utf8_low) par {
+	# We will have to erase the previously copied token if we find a format
+	# symbol after the character.
+	emit erase_previous <- (token == 0x31) || (token == 0x32) || (token == 0x33);
+	# We react to the different valid or invalid tokens.
+	if (token == 0x31) par { # '1'
+		emit utf8_high <- 0xC3;
+		emit utf8_low <- 0xA8;
+	}
+	elif (token == 0x32) par { # '2'
+		emit utf8_high <- 0xC3;
+		emit utf8_low <- 0xA9;
+	}
+	elif (token == 0x33) par { # '3'
+		emit utf8_high <- 0xC3;
+		emit utf8_low <- 0xAA;
+	}
+	else par {
+		emit utf8_high <- 0;
+		emit utf8_low <- 0;
+	}
+	endif;
+}
+endmodule

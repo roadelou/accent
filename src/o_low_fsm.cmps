@@ -1,0 +1,18 @@
+# State machine handling the substitutions for the 'o' letter. The input should
+# be the token right after the character we could perform the substitution for.
+module o_low_fsm(input token, output erase_previous, output utf8_high, output utf8_low) par {
+	# We will have to erase the previously copied token if we find a format
+	# symbol after the character.
+	emit erase_previous <- (token == 0x33);
+	# We react to the different valid or invalid tokens.
+	if (token == 0x33) par { # '3'
+		emit utf8_high <- 0xC3;
+		emit utf8_low <- 0xB4;
+	}
+	else par {
+		emit utf8_high <- 0;
+		emit utf8_low <- 0;
+	}
+	endif;
+}
+endmodule
